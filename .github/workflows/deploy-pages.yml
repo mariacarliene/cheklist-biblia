@@ -7,12 +7,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/upload-pages-artifact@v2
+      - name: Publish to GitHub Pages
+        uses: github/pages-deploy-action@v0
         with:
-          path: ./
-      - uses: actions/deploy-pages@v1
+          branch: gh-pages  # branch onde o site será publicado
+          folder: ./        # pasta raiz do repositório
