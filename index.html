@@ -21,7 +21,167 @@ input:checked + span { text-decoration: line-through; color: #888; }
 <div id="conteudo"></div>
 
 <script>
-// Aqui vamos colocar o JavaScript
+const secoes = [
+  // Antigo Testamento - Pentateuco
+  {
+    titulo: "📖 Antigo Testamento - Pentateuco",
+    itens: [
+      { texto: "Gênesis" },
+      { texto: "Êxodo" },
+      { texto: "Levítico" },
+      { texto: "Números" },
+      { texto: "Deuteronômio" }
+    ]
+  },
+  // Antigo Testamento - Livros Históricos
+  {
+    titulo: "📖 Antigo Testamento - Livros Históricos",
+    itens: [
+      { texto: "Josué" },
+      { texto: "Juízes" },
+      { texto: "Rute" },
+      { texto: "1 Samuel" },
+      { texto: "2 Samuel" },
+      { texto: "1 Reis" },
+      { texto: "2 Reis" },
+      { texto: "1 Crônicas" },
+      { texto: "2 Crônicas" },
+      { texto: "Esdras" },
+      { texto: "Neemias" },
+      { texto: "Ester" }
+    ]
+  },
+  // Antigo Testamento - Poéticos e Sabedoria
+  {
+    titulo: "📖 Antigo Testamento - Poéticos e Sabedoria",
+    itens: [
+      { texto: "Jó" },
+      { texto: "Salmos" },
+      { texto: "Provérbios" },
+      { texto: "Eclesiastes" },
+      { texto: "Cânticos" }
+    ]
+  },
+  // Antigo Testamento - Profetas Maiores
+  {
+    titulo: "📖 Antigo Testamento - Profetas Maiores",
+    itens: [
+      { texto: "Isaías" },
+      { texto: "Jeremias" },
+      { texto: "Lamentações" },
+      { texto: "Ezequiel" },
+      { texto: "Daniel" }
+    ]
+  },
+  // Antigo Testamento - Profetas Menores
+  {
+    titulo: "📖 Antigo Testamento - Profetas Menores",
+    itens: [
+      { texto: "Oséias" },
+      { texto: "Joel" },
+      { texto: "Amós" },
+      { texto: "Obadias" },
+      { texto: "Jonas" },
+      { texto: "Miquéias" },
+      { texto: "Naum" },
+      { texto: "Habacuque" },
+      { texto: "Sofonias" },
+      { texto: "Ageu" },
+      { texto: "Zacarias" },
+      { texto: "Malaquias" }
+    ]
+  },
+  // Novo Testamento - Evangelhos e Atos
+  {
+    titulo: "📖 Novo Testamento - Evangelhos e Atos",
+    itens: [
+      { texto: "Mateus" },
+      { texto: "Marcos" },
+      { texto: "Lucas" },
+      { texto: "João" },
+      { texto: "Atos" }
+    ]
+  },
+  // Novo Testamento - Cartas de Paulo
+  {
+    titulo: "📖 Novo Testamento - Cartas de Paulo",
+    itens: [
+      { texto: "Romanos" },
+      { texto: "1 Coríntios" },
+      { texto: "2 Coríntios" },
+      { texto: "Gálatas" },
+      { texto: "Efésios" },
+      { texto: "Filipenses" },
+      { texto: "Colossenses" },
+      { texto: "1 Tessalonicenses" },
+      { texto: "2 Tessalonicenses" },
+      { texto: "1 Timóteo" },
+      { texto: "2 Timóteo" },
+      { texto: "Tito" },
+      { texto: "Filemom" }
+    ]
+  },
+  // Novo Testamento - Cartas Gerais
+  {
+    titulo: "📖 Novo Testamento - Cartas Gerais",
+    itens: [
+      { texto: "Hebreus" },
+      { texto: "Tiago" },
+      { texto: "1 Pedro" },
+      { texto: "2 Pedro" },
+      { texto: "1 João" },
+      { texto: "2 João" },
+      { texto: "3 João" },
+      { texto: "Judas" }
+    ]
+  },
+  // Novo Testamento - Apocalipse
+  {
+    titulo: "📖 Novo Testamento - Apocalipse",
+    itens: [
+      { texto: "Apocalipse" }
+    ]
+  }
+];
+
+const container = document.getElementById("conteudo");
+let totalItems = 0;
+
+secoes.forEach(secao => {
+  const h3 = document.createElement("h3");
+  h3.innerText = secao.titulo;
+  container.appendChild(h3);
+
+  secao.itens.forEach(item => {
+    const label = document.createElement("label");
+    label.className = "item";
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+
+    const span = document.createElement("span");
+    span.textContent = item.texto;
+
+    if (localStorage.getItem(item.texto) === "true") cb.checked = true;
+
+    cb.addEventListener("change", () => {
+      localStorage.setItem(item.texto, cb.checked);
+      atualizarProgresso();
+    });
+
+    label.appendChild(cb);
+    label.appendChild(span);
+    container.appendChild(label);
+    totalItems++;
+  });
+});
+
+function atualizarProgresso() {
+  const feitos = document.querySelectorAll("input:checked").length;
+  const porcentagem = Math.round((feitos / totalItems) * 100);
+  document.getElementById("progresso").innerText = `Progresso: ${feitos}/${totalItems} (${porcentagem}%)`;
+}
+
+atualizarProgresso();
 </script>
 
 </body>
