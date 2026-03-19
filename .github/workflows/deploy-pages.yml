@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Publish to GitHub Pages
-        uses: github/pages-deploy-action@v0
+      - name: Publicar no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          branch: gh-pages  # branch onde o site será publicado
-          folder: ./        # pasta raiz do repositório
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
